@@ -1,0 +1,166 @@
+import java.util.*;
+
+class Employee{
+	private int empno;
+	private String ename;
+	private int salary;
+	
+	// to initialize instance using constructor
+	Employee(int empno, String ename, int salary){
+		this.empno=empno;
+		this.ename=ename;
+		this.salary=salary;
+	}
+	
+	public int getEmpno() {
+	return empno;
+}
+public int getSalary() {
+	return salary;
+}
+public String getEname() {
+	return ename;
+}
+//Whenever instance is called concatenate with this
+public String toString() {
+	return empno+" "+ename+" "+salary;
+ }
+}
+// Menu-driven
+
+class CRUDDemo{
+	public static void main(String[] args) {
+		
+		//Collection<Employee> c = new ArrayList<Employee>();
+		List<Employee> c = new ArrayList<Employee>();//Update the particular value
+		Scanner s=new Scanner(System.in);
+		// 1 Scanner for integer and another scanner for int
+		Scanner s1=new Scanner(System.in); //String
+		int ch;//choice
+		do {
+			System.out.println("1.INSERT");
+			System.out.println("2.DISPLAY");
+			System.out.println("3.SEARCH");
+			System.out.println("4.DELETE");
+			System.out.println("5.UPDATE");
+			System.out.print("Enter Your Choice: ");
+			ch=s.nextInt();
+			
+			switch(ch) {
+			case 1:
+				System.out.print("Enter Empno : ");
+				int eno=s.nextInt();
+				System.out.print("Enter EmpName : ");
+				String ename=s1.nextLine();
+				System.out.print("Enter Salary : ");
+				int salary=s.nextInt();
+				
+				c.add(new Employee(eno,ename,salary));// object is created in collection
+				break;
+				
+			case 2:
+				//each and every data should be in unique row. so use iterate
+				//System.out.println(c);//Collection is printed []
+				System.out.println("-------------------------");
+				//Each and every record display one by one using iterator
+				Iterator<Employee> i = c.iterator();// Collection of Employee
+				while(i.hasNext()) {
+// if next record available then simply retrieve one by one
+				Employee e = i.next();//retrieve record in e
+				System.out.println(e);
+				}
+				System.out.println("-------------------------");
+					break;
+				
+			case 3:
+				boolean found=false; //by default record will not be found
+				//each and every data should be in unique row. so use iterate
+				//System.out.println(c);//Collection is printed []
+				System.out.println("Enter empno to search");
+				int empno=s.nextInt();
+				System.out.println("-------------------------");
+				//Each and every record display one by one using iterator
+				 i = c.iterator();// Collection of Employee
+				while(i.hasNext()) {
+// if next record available then simply retrieve one by one
+				Employee e = i.next();//retrieve record in e
+				if(e.getEmpno() == empno) {
+				System.out.println(e);
+				found = true;
+				}
+				}
+				if(!found) {
+					System.out.println("Record not found");
+				}
+				System.out.println("-------------------------");
+					break;
+					
+			case 4:
+				found=false; //by default record will not be found
+				//each and every data should be in unique row. so use iterate
+				//System.out.println(c);//Collection is printed []
+				System.out.println("Enter empno to Delete");
+				empno=s.nextInt();
+				System.out.println("-------------------------");
+				//Each and every record display one by one using iterator
+				 i = c.iterator();// Collection of Employee
+				while(i.hasNext()) {
+// if next record available then simply retrieve one by one
+				Employee e = i.next();//retrieve record in e
+				if(e.getEmpno() == empno) {
+				i.remove();// Removes the Record
+				found = true;
+				}
+				}
+				if(!found) {
+					System.out.println("Record not found");
+				}
+				else {
+					System.out.println("Record is Deleted Successfully!..");
+				}
+				System.out.println("-------------------------");
+					break;
+					
+			case 5:
+				found=false; //by default record will not be found
+				//each and every data should be in unique row. so use iterate
+				//System.out.println(c);//Collection is printed []
+				System.out.println("Enter empno to Update");
+				empno=s.nextInt();
+				//Each and every record display one by one using iterator
+				 ListIterator<Employee>li=c.listIterator();//it use to initialize the list iterator
+				while(li.hasNext()) {
+// if next record available then simply retrieve one by one
+				Employee e = li.next();//retrieve record in e
+				if(e.getEmpno() == empno) {
+				
+				System.out.print("Enter New Name : ");
+				ename=s1.nextLine();
+				
+				System.out.print("Enter New Salary : ");
+				salary=s1.nextInt();
+				li.set(new Employee(empno,ename,salary));//set the object of the employee
+				
+				found = true;
+				}
+				}
+				if(!found) {
+					System.out.println("Record not found");
+				}
+				else {
+					System.out.println("Record is Updated Successfully!..");
+				}
+					break;
+			}
+		}while(ch!=0);//user shouldn't press 0
+	}
+}
+
+
+//to run
+javac Employee.java
+java Employee
+
+
+
+
